@@ -1,5 +1,5 @@
 import React from 'react';
-import imageToAdd from "../../assets/senai-logo.png";
+import imageToAdd from "../../../assets/img.png";   
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -38,7 +38,7 @@ export function Cadastro() {
              <Text style={{fontSize: 18, color: '#fff'}}>Cadastrar</Text>
             </View> 
         </TouchableOpacity>
-            <View style={styles.centralize}>
+            <View style={styles.centralize}>    
              <Text style={{fontSize: 18, color: '#000', marginTop: 20}}>Voltar</Text>
             </View> 
     </View>
