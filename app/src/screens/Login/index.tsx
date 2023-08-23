@@ -6,10 +6,19 @@ import { Link } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 
 
-
 export function Login() {
     const navigation = useNavigation();
-    
+
+    const handleLogin = () => {
+        // Realize a lógica de login
+        // Em seguida, navegue para a tela principal (Main)
+        navigation.navigate('Main', { showTabs: true });
+    };
+
+    const handleCadastro = () => {
+        navigation.navigate('Cadastro'); // Navegar para a tela de cadastro
+    };
+
     return (
     <View style={styles.container}>
 
@@ -31,19 +40,15 @@ export function Login() {
         <Text>Esqueceu a Senha?</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <View style={styles.centralize}>
-            <Link to={{ screen: 'Ambientes'}}>
              <Text style={{fontSize: 18, color: '#fff'}}>Login</Text>
-             </Link>
             </View> 
         </TouchableOpacity>
         <Text style={{marginTop: 50}}>Ainda não tem uma conta?</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
             <View style={styles.centralize}>
-            <Link to={{ screen: 'Cadastro'}}>
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>
-             </Link>
             </View> 
         </TouchableOpacity>
     </View>
