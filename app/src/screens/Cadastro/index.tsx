@@ -11,11 +11,10 @@ export function Cadastro() {
   
     return (
     <View style={styles.container}>
-
-    <View style={styles.centralize}> 
-      <img src={imageToAdd} style={styles.image} alt="Image" />
-      <Text style={{fontSize: 25, marginBottom: 30}}>Cadastre-se</Text>
-    </View>
+        <View style={styles.centralize}> 
+            <img src={imageToAdd} style={styles.image} alt="Image" />
+            <Text style={{fontSize: 25, marginBottom: 30}}>Cadastre-se</Text>
+        </View>
 
     <View style={styles.centralize}> 
         <TextInput 
@@ -29,17 +28,16 @@ export function Cadastro() {
         <TextInput
         placeholder="Confirmar Senha"
         style={styles.Input}/>  
-        
-        <View>
-        </View>
 
         <TouchableOpacity style={styles.button}>
             <View style={styles.centralize}>
-             <Text style={{fontSize: 18, color: '#fff'}}>Cadastrar</Text>
+                <Text style={{fontSize: 18, color: '#fff'}}>Cadastrar</Text>
             </View> 
         </TouchableOpacity>
             <View style={styles.centralize}>    
-             <Text style={{fontSize: 18, color: '#000', marginTop: 20}}>Voltar</Text>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={{fontSize: 18, color: '#000', marginTop: 20}}>Voltar</Text>
+                </TouchableOpacity>
             </View> 
     </View>
         <View style={{marginBottom: 300}}> </View>
@@ -59,9 +57,6 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 300,
-    },
-    login: {
-
     },
     Input: {
         backgroundColor: '#f8f4f4',

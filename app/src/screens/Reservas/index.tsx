@@ -1,5 +1,5 @@
 import React from 'react';
-import imageToAdd from "../../assets/senai-logo.png";
+import imageToAdd from "../../../assets/calendar-clock.png";
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,10 @@ export function Reservas() {
   
     return (
     <View style={styles.container}>
+    <View style={styles.centralize}>
+    <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
+    <Text style={{fontSize:25, marginTop: 20}}>Você não reservou nenhum ambiente</Text>
+    </View>
     </View>
   );
 }
@@ -24,12 +28,6 @@ const styles = StyleSheet.create({
     centralize: {
         alignItems: 'center', 
         justifyContent: 'center',
-    },
-    image: {
-        width: 300,
-    },
-    login: {
-
     },
     Input: {
         backgroundColor: '#f8f4f4',

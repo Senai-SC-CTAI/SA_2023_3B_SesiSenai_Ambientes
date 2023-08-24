@@ -1,7 +1,6 @@
 import React from 'react';
 import imageToAdd from "../../../assets/img.png";
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
-import { Link } from '@react-navigation/native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,7 +15,7 @@ export function Login() {
     };
 
     const handleCadastro = () => {
-        navigation.navigate('Cadastro'); // Navegar para a tela de cadastro
+        navigation.navigate('Cadastro',{showTabs: false}); // Navegar para a tela de cadastro
     };
 
     return (
@@ -45,7 +44,7 @@ export function Login() {
              <Text style={{fontSize: 18, color: '#fff'}}>Login</Text>
             </View> 
         </TouchableOpacity>
-        <Text style={{marginTop: 50}}>Ainda não tem uma conta?</Text>
+        <Text style={{marginTop: 20}}>Ainda não tem uma conta?</Text>
         <TouchableOpacity style={styles.button} onPress={handleCadastro}>
             <View style={styles.centralize}>
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>

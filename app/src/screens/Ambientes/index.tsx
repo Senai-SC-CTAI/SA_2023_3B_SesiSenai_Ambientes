@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
+import imageToAdd from "../../../assets/paper-plane.png";
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,6 +11,10 @@ export function Ambientes() {
     
     return (
     <View style={styles.container}>
+        <View style={styles.centralize}>
+            <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
+            <Text style={{fontSize:25, marginTop: 20}}>Não há Ambientes criados</Text>
+        </View>
     </View>
   );
 }
