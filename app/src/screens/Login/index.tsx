@@ -22,6 +22,14 @@ export function Login() {
         navigation.navigate('EsqueceuSenha',{showTabs: false}); // Navegar para a tela de cadastro
     };
 
+    const handleSalas = () => {
+        navigation.navigate('Salas',{showTabs: false}); // Navegar para a tela de cadastro
+    };
+
+    const handlePessoas = () => {
+        navigation.navigate('Pessoas',{showTabs: false}); // Navegar para a tela de cadastro
+    };
+
     return (
     <View style={styles.container}>
 
@@ -55,6 +63,12 @@ export function Login() {
             <View style={styles.centralize}>
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>
             </View> 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSalas}>
+        <Text>Salas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handlePessoas}>
+        <Text>Pessoas</Text>
         </TouchableOpacity>
     </View>
         <View style={{marginBottom: 300}}> </View>

@@ -1,4 +1,5 @@
 import React from 'react';
+import imageToAdd from "../../../assets/teachings.png";
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -7,9 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 
 export function Salas() {
     const navigation = useNavigation();
-    
+  
     return (
     <View style={styles.container}>
+    <View style={styles.centralize}>
+    <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
+    <Text style={{fontSize:20, marginTop: 20}}>Nenhuma sala disponível</Text>
+    </View>
     </View>
   );
 }
@@ -23,12 +28,6 @@ const styles = StyleSheet.create({
     centralize: {
         alignItems: 'center', 
         justifyContent: 'center',
-    },
-    image: {
-        width: 300,
-    },
-    login: {
-
     },
     Input: {
         backgroundColor: '#f8f4f4',
