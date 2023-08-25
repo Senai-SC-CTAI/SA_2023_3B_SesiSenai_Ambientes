@@ -1,22 +1,33 @@
 import React from 'react';
-import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import imageToAdd from "../../../assets/paper-plane.png";
-
+import imageToAdd2 from "../../../assets/add-button.png";
 import { useNavigation } from '@react-navigation/native';
-
-
 
 export function Ambientes() {
     const navigation = useNavigation();
-    
+
+    const handleAdicionar = () => {
+        // Aqui você pode adicionar a lógica para navegar para a tela de criação de ambiente
+        // navigation.navigate('TelaDeCriacaoDeAmbiente');
+    };
+
     return (
-    <View style={styles.container}>
-        <View style={styles.centralize}>
-            <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
-            <Text style={{fontSize:25, marginTop: 20}}>Não há Ambientes criados</Text>
+        <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.contentContainer}>
+                <View style={styles.centralize}>
+                    <Image source={imageToAdd} style={styles.image} />
+                    <Text style={styles.message}>Não há Ambientes criados</Text>
+                </View>
+                {/* ... seu conteúdo da tela de ambientes ... */}
+            </ScrollView>
+            
+            {/* Botão flutuante para adicionar */}
+            <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
+                <Text style={styles.addButtonText}>+</Text>
+            </TouchableOpacity>
         </View>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
@@ -26,14 +37,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     centralize: {
-        alignItems: 'center', 
+        flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
     },
     image: {
-        width: 300,
+        height: 150,
+        width: 150,
+        marginBottom: 20,
     },
-    login: {
-
+    contentContainer: {
+        flexGrow: 1, // Permite que o conteúdo cresça verticalmente
     },
     Input: {
         backgroundColor: '#f8f4f4',
@@ -53,5 +67,24 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 12,
         padding: 10,
-    }
+    },
+    message: {
+        fontSize: 20,
+    },
+    addButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        backgroundColor: '#005caa',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 5,
+    },
+    addButtonText: {
+        color: 'white',
+        fontSize: 30,
+    },
 })

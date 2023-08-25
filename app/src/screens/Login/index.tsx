@@ -18,6 +18,10 @@ export function Login() {
         navigation.navigate('Cadastro',{showTabs: false}); // Navegar para a tela de cadastro
     };
 
+    const handleEsqueceuSenha = () => {
+        navigation.navigate('EsqueceuSenha',{showTabs: false}); // Navegar para a tela de cadastro
+    };
+
     return (
     <View style={styles.container}>
 
@@ -36,7 +40,9 @@ export function Login() {
         style={styles.Input}/>  
         
         <View>
+        <TouchableOpacity onPress={handleEsqueceuSenha}>
         <Text>Esqueceu a Senha?</Text>
+        </TouchableOpacity>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleLogin}>

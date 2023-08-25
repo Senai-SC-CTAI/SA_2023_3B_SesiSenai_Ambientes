@@ -13,7 +13,7 @@ export function Reservas() {
     <View style={styles.container}>
     <View style={styles.centralize}>
     <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
-    <Text style={{fontSize:25, marginTop: 20}}>Você não reservou nenhum ambiente</Text>
+    <Text style={{fontSize:20, marginTop: 20}}>Você não reservou nenhum ambiente</Text>
     </View>
     </View>
   );

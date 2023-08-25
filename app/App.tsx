@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TabNavigator } from './src/routes/TabNavigator'; // Importe o TabNavigator
 import { Login } from './src/screens/Login/index';
-import { Cadastro } from './src/screens/Cadastro'; // Importe a tela de login
+import { Cadastro } from './src/screens/Cadastro'; 
+import { EsqueceuSenha } from './src/screens/EsqueceuSenha';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ export default function App() {
                 <Stack.Screen 
                 name="Cadastro"
                 component={Cadastro}
+                options={{headerShown: false}}
+                />
+                <Stack.Screen 
+                name="EsqueceuSenha"
+                component={EsqueceuSenha}
                 options={{headerShown: false}}
                 />
             </Stack.Navigator>

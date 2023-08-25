@@ -1,15 +1,37 @@
 import React from 'react';
+import imageToAdd from "../../../assets/img.png";   
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-
 
 
 export function EsqueceuSenha() {
     const navigation = useNavigation();
     
     return (
-    <View style={styles.container}>
+        <View style={styles.container}>
+        <View style={styles.centralize}> 
+            <img src={imageToAdd} style={styles.image} alt="Image" />
+            <Text style={{fontSize: 20, marginBottom: 30}}>Insira seu Email para recuperar a senha</Text>
+        </View>
+
+    <View style={styles.centralize}> 
+        <TextInput 
+         placeholder="Email"
+         style={styles.Input} />
+        
+        <TouchableOpacity style={styles.button}>
+            <View style={styles.centralize}>
+                <Text style={{fontSize: 18, color: '#fff'}}>Enviar Email</Text>
+            </View> 
+        </TouchableOpacity>
+            <View style={styles.centralize}>    
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={{fontSize: 18, color: '#000', marginTop: 20}}>Voltar</Text>
+                </TouchableOpacity>
+            </View> 
+    </View>
+        <View style={{marginBottom: 300}}> </View>
     </View>
   );
 }
@@ -26,9 +48,6 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 300,
-    },
-    login: {
-
     },
     Input: {
         backgroundColor: '#f8f4f4',
