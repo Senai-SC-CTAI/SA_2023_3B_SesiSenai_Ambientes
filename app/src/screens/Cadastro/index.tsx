@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import imageToAdd from "../../../assets/img.png";   
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
@@ -8,6 +8,30 @@ import { useNavigation } from '@react-navigation/native';
 
 export function Cadastro() {
     const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [accountType, setAccountType] = useState('');
+
+    const handleCadastro = () => {
+        // Verificar se o email atende aos requisitos
+        if (email.endsWith('@estudante.sesisenai.org.br')) {
+            setAccountType('estudante');
+        } else if (email.endsWith('@edu.sesisc.org.br')) {
+            setAccountType('professor');
+        } else {
+            alert('Email não válido.');
+            return;
+        }
+
+        // Outras validações, como senha igual a confirmação de senha, etc.
+        if (password !== confirmPassword) {
+            alert('As senhas não coincidem.');
+            return;
+        }
+
+        navigation.navigate('Login');
+    };
   
     return (
     <View style={styles.container}>
@@ -17,19 +41,30 @@ export function Cadastro() {
         </View>
 
     <View style={styles.centralize}> 
-        <TextInput 
-         placeholder="Email"
-         style={styles.Input} />
-        
-        <TextInput
-        placeholder="Senha"
-        style={styles.Input}/>  
+    <TextInput
+                    placeholder="Email"
+                    style={styles.Input}
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                />
 
-        <TextInput
-        placeholder="Confirmar Senha"
-        style={styles.Input}/>  
+                <TextInput
+                    placeholder="Senha"
+                    style={styles.Input}
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                />
 
-        <TouchableOpacity style={styles.button}>
+                <TextInput
+                    placeholder="Confirmar Senha"
+                    style={styles.Input}
+                    secureTextEntry={true}
+                    value={confirmPassword}
+                    onChangeText={(text) => setConfirmPassword(text)}
+                />
+
+        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
             <View style={styles.centralize}>
                 <Text style={{fontSize: 18, color: '#fff'}}>Cadastrar</Text>
             </View> 

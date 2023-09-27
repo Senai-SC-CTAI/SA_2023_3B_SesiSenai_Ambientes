@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import imageToAdd from "../../../assets/img.png";
+import { simulateAuthentication } from '../../components/Authenticate/index';
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-
 export function Login() {
     const navigation = useNavigation();
+    const [email, setEmail] = useState(''); // Defina email como um estado inicial vazio
+    const [password, setPassword] = useState(''); // Defina password como um estado inicial vazio
 
-    const handleLogin = () => {
-        // Realize a lógica de login
-        // Em seguida, navegue para a tela principal (Main)
-        navigation.navigate('Main', { showTabs: true });
+    const handleLogin = async () => {
+        // Simule a autenticação
+        const accountType = await simulateAuthentication(email, password);
+    
+        if (accountType === 'aluno') {
+            // Se o login for de um aluno, navegue para as telas de Salas e Perfil.
+            navigation.navigate('Main', { showTabs: true, accountType: 'aluno' });
+        } else if (accountType === 'professor') {
+            // Se o login for de um professor, navegue para as telas de Ambientes, Reservas e Perfil.
+            navigation.navigate('Main', { showTabs: true, accountType: 'professor' });
+        } else {
+            // Caso contrário, exiba uma mensagem de erro.
+            alert('Credenciais inválidas. Tente novamente.');
+        }
     };
 
     const handleCadastro = () => {
@@ -22,13 +34,6 @@ export function Login() {
         navigation.navigate('EsqueceuSenha',{showTabs: false}); // Navegar para a tela de cadastro
     };
 
-    const handleSalas = () => {
-        navigation.navigate('Salas',{showTabs: false}); // Navegar para a tela de cadastro
-    };
-
-    const handlePessoas = () => {
-        navigation.navigate('Pessoas',{showTabs: false}); // Navegar para a tela de cadastro
-    };
 
     return (
     <View style={styles.container}>
@@ -39,36 +44,37 @@ export function Login() {
     </View>
 
     <View style={styles.centralize}> 
-        <TextInput 
-         placeholder="Email"
-         style={styles.Input} />
-        
-        <TextInput
-        placeholder="Senha"
-        style={styles.Input}/>  
+         <TextInput
+            placeholder="Email"
+            style={styles.Input}
+            value={email}
+            onChangeText={(text) => setEmail(text)} // Atualize o estado do email
+             />
+
+         <TextInput
+            placeholder="Senha"
+            style={styles.Input}
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)} // Atualize o estado da senha
+            />
         
         <View>
-        <TouchableOpacity onPress={handleEsqueceuSenha}>
-        <Text>Esqueceu a Senha?</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={handleEsqueceuSenha}>
+                <Text>Esqueceu a Senha?</Text>
+            </TouchableOpacity>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <View style={styles.centralize}>
-             <Text style={{fontSize: 18, color: '#fff'}}>Login</Text>
+                <Text style={{fontSize: 18, color: '#fff'}}>Login</Text>
             </View> 
         </TouchableOpacity>
         <Text style={{marginTop: 20}}>Ainda não tem uma conta?</Text>
-        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
-            <View style={styles.centralize}>
+             <TouchableOpacity style={styles.button} onPress={handleCadastro}>
+                 <View style={styles.centralize}>
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>
-            </View> 
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleSalas}>
-        <Text>Salas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handlePessoas}>
-        <Text>Pessoas</Text>
+       </View> 
         </TouchableOpacity>
     </View>
         <View style={{marginBottom: 300}}> </View>

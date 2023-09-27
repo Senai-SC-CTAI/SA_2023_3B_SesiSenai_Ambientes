@@ -1,3 +1,6 @@
 {
-  "urlRandomness": "HmGEl44"
+  "urlRandomness": "HmGEl44",
+  "dev": true,
+  "minify": false,
+  "https": false
 }
