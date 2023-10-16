@@ -5,33 +5,19 @@ import { Reservas } from '../screens/Reservas';
 import { Perfil } from '../screens/Perfil';
 import { Pessoas } from '../screens/Pessoas';
 import { Salas } from '../screens/Salas';
+import { TelaDeCriacaoDeAmbiente } from '../screens/TelaDeCriacaoDeAmbiente';
 
 const Tab = createMaterialTopTabNavigator();
 export function TabNavigator({ route }) {
     const showTabs = route?.params?.showTabs || false;
-    const accountType = route?.params?.accountType || ''; // Obtenha o tipo de conta
 
     return (
         <Tab.Navigator>
-            {showTabs ? (
-                <>
-                    {accountType === 'estudante' ? (
-                        <>
                             <Tab.Screen name="Salas" component={Salas} />
-                            <Tab.Screen name="Perfil" component={Perfil} />
-                        </>
-                    ) : null}
-
-                    {accountType === 'professor' ? (
-                        <>
+                            <Tab.Screen name="Pessoas" component={Pessoas} />
                             <Tab.Screen name="Ambientes" component={Ambientes} />
                             <Tab.Screen name="Reservas" component={Reservas} />
                             <Tab.Screen name="Perfil" component={Perfil} />
-                        </>
-                    ) : null}
-                </>
-            ) : null}
-            {/* Adicione as outras telas aqui */}
         </Tab.Navigator>
     );
 }

@@ -11,19 +11,7 @@ export function Login() {
     const [password, setPassword] = useState(''); // Defina password como um estado inicial vazio
 
     const handleLogin = async () => {
-        // Simule a autenticação
-        const accountType = await simulateAuthentication(email, password);
-    
-        if (accountType === 'aluno') {
-            // Se o login for de um aluno, navegue para as telas de Salas e Perfil.
-            navigation.navigate('Main', { showTabs: true, accountType: 'aluno' });
-        } else if (accountType === 'professor') {
-            // Se o login for de um professor, navegue para as telas de Ambientes, Reservas e Perfil.
-            navigation.navigate('Main', { showTabs: true, accountType: 'professor' });
-        } else {
-            // Caso contrário, exiba uma mensagem de erro.
-            alert('Credenciais inválidas. Tente novamente.');
-        }
+        navigation.navigate('Main', { showTabs: true});
     };
 
     const handleCadastro = () => {

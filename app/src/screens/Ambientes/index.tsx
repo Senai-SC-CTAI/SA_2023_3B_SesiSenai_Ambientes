@@ -1,40 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import imageToAdd from "../../../assets/paper-plane.png";
-import imageToAdd2 from "../../../assets/add-button.png";
 import { useNavigation } from '@react-navigation/native';
 
 export function Ambientes() {
     const navigation = useNavigation();
+    const [ambientes, setAmbientes] = useState([]);
 
-    const handleAdicionar = () => {
-        // Aqui você pode adicionar a lógica para navegar para a tela de criação de ambiente
-        // navigation.navigate('TelaDeCriacaoDeAmbiente');
-    };
+ useEffect(() => {
+    setAmbientes([
+        { nome: 'Sala de Reunião', imagem: require('../../../assets/reuniao.png') },
+        { nome: 'Laboratório', imagem: require('../../../assets/laboratorio.png') },
+    ]);
+}, []);
 
-    return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.contentContainer}>
+return (
+    <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+            {ambientes.length === 0 ? (
                 <View style={styles.centralize}>
-                    <Image source={imageToAdd} style={styles.image} />
+                    <img src={imageToAdd} style={styles.image} />
                     <Text style={styles.message}>Não há Ambientes criados</Text>
                 </View>
-                {/* ... seu conteúdo da tela de ambientes ... */}
-            </ScrollView>
-            
-            {/* Botão flutuante para adicionar */}
-            <TouchableOpacity style={styles.addButton} onPress={handleAdicionar}>
-                <Text style={styles.addButtonText}>+</Text>
-            </TouchableOpacity>
-        </View>
-    );
+            ) : (
+                // Mapeie a lista de ambientes e exiba cada um na tela
+                ambientes.map((ambiente, index) => (
+                    <View key={index} style={styles.ambienteContainer}>
+                        <Text style={styles.ambienteName}>{ambiente.nome}</Text>
+                        <View style={styles.ambienteContent}>
+                          <img src={ambiente.imagem} style={styles.ambienteImage} />
+                        </View>
+                        <TouchableOpacity style={styles.reservarButton} onPress={() => reservarAmbiente(ambiente)}>
+                            <Text style={styles.reservarButtonText}>Reservar</Text>
+                        </TouchableOpacity>
+                    </View>
+                ))
+            )}
+        </ScrollView>
+    </View>
+);
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        justifyContent: "center",
     },
     centralize: {
         flex: 1,
@@ -47,44 +57,36 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     contentContainer: {
-        flexGrow: 1, // Permite que o conteúdo cresça verticalmente
+        flexGrow: 1,
     },
-    Input: {
-        backgroundColor: '#f8f4f4',
-        color: '#000',
-        width: 250,
-        height: 45,
-        fontSize: 20,
-        margin: 12,
-        padding: 10,
+    ambienteContainer: {
+        backgroundColor: '#f8f4f4', // Cor de fundo para o quadrado
+        margin: 10,
+        borderRadius: 10, // Borda arredondada
+        overflow: 'hidden', // Para cortar qualquer conteúdo que saia dos limites
     },
-    button: {
+    ambienteContent: {
+        alignItems: 'center',
+        paddingTop: 10,
+    },
+    ambienteImage: {
+        width: '100%',
+        height: '100%',
+    },
+    ambienteName: {
+        fontSize: 18,
+        marginTop: 5,
+        alignSelf: 'center'
+    },
+    reservarButton: {
         backgroundColor: '#005caa',
-        color: '#7bacd4',
-        borderRadius: 6,
-        width: 250,
-        height: 45,
-        fontSize: 20,
-        margin: 12,
         padding: 10,
+    },
+    reservarButtonText: {
+        color: 'white',
+        textAlign: 'center',
     },
     message: {
         fontSize: 20,
     },
-    addButton: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        backgroundColor: '#005caa',
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 5,
-    },
-    addButtonText: {
-        color: 'white',
-        fontSize: 30,
-    },
-})
+});
