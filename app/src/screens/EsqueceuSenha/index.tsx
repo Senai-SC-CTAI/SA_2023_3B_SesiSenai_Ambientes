@@ -12,7 +12,7 @@ export function EsqueceuSenha() {
         <View style={styles.container}>
         <View style={styles.centralize}> 
             <img src={imageToAdd} style={styles.image} alt="Image" />
-            <Text style={{fontSize: 20, marginBottom: 30}}>Insira seu Email para recuperar a senha</Text>
+            <Text style={{fontSize: 20, marginBottom: 20}}>Insira seu Email para recuperar a senha</Text>
         </View>
 
     <View style={styles.centralize}> 
@@ -47,7 +47,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 300,
+        width: 200,
+        marginBottom: 20,
+        marginTop: 50,
     },
     Input: {
         backgroundColor: '#f8f4f4',

@@ -9,15 +9,16 @@ import { TelaDeCriacaoDeAmbiente } from '../screens/TelaDeCriacaoDeAmbiente';
 
 const Tab = createMaterialTopTabNavigator();
 export function TabNavigator({ route }) {
+    const userType = route?.params?.userType || 'student';  
     const showTabs = route?.params?.showTabs || false;
 
     return (
         <Tab.Navigator>
-                            <Tab.Screen name="Salas" component={Salas} />
-                            <Tab.Screen name="Pessoas" component={Pessoas} />
-                            <Tab.Screen name="Ambientes" component={Ambientes} />
-                            <Tab.Screen name="Reservas" component={Reservas} />
-                            <Tab.Screen name="Perfil" component={Perfil} />
+            {(userType === 'student' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
+            {(userType === 'teacher' || userType === 'coordination') && <Tab.Screen name="Ambientes" component={Ambientes} />}
+            {(userType === 'teacher' || userType === 'coordination') && <Tab.Screen name="Reservas" component={Reservas} />}
+            <Tab.Screen name="Perfil" component={Perfil} />
+            {userType === 'coordination' && <Tab.Screen name="Pessoas" component={Pessoas} />}
         </Tab.Navigator>
     );
 }

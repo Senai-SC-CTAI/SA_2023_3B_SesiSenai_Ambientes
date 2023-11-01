@@ -5,47 +5,52 @@ import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'reac
 import { useNavigation } from '@react-navigation/native';
 
 
-
 export function Salas() {
     const navigation = useNavigation();
-  
+    const schedule = [
+        { time: '7:40', room: 'Sala 1', class: 'Turma A' },
+        { time: '10:30', room: 'Sala 2', class: 'Turma B' },
+        // Adicione mais horários, salas e turmas conforme necessário
+      ];
     return (
-    <View style={styles.container}>
-    <View style={styles.centralize}>
-    <img src={imageToAdd} style={{height:150, width:150}} alt="Image" />
-    <Text style={{fontSize:20, marginTop: 20}}>Nenhuma sala disponível</Text>
-    </View>
-    </View>
-  );
-}
-
+        <View style={styles.container}>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.cell}>Horário</th>
+              <th style={styles.cell}>Sala</th>
+              <th style={styles.cell}>Turma</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((item, index) => (
+              <tr key={index}>
+                <td style={styles.cell}>{item.time}</td>
+                <td style={styles.cell}>{item.room}</td>
+                <td style={styles.cell}>{item.class}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </View>
+    );
+  };
+  
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
-        justifyContent: "center",
-    },
-    centralize: {
-        alignItems: 'center', 
         justifyContent: 'center',
-    },
-    Input: {
-        backgroundColor: '#f8f4f4',
-        color: '#000',
-        width: 250,
-        height: 45,
-        fontSize: 20,
-        margin: 12,
-        padding: 10,
-    },
-    button: {
-        backgroundColor: '#005caa',
-        color: '#7bacd4',
-        borderRadius: 6,
-        width: 250,
-        height: 45,
-        fontSize: 20,
-        margin: 12,
-        padding: 10,
-    }
+        alignItems: 'center',
+        backgroundColor: "white",
+      },
+      table: {
+        borderCollapse: 'collapse',
+        width: '90%',
+      },
+      cell: {
+        border: '1px solid black',
+        width: '100px',
+        height: '100px',
+        textAlign: 'center',
+      },
 })

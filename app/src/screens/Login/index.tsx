@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import imageToAdd from "../../../assets/img.png";
-import { simulateAuthentication } from '../../components/Authenticate/index';
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+
+function getUserType(email) {
+    if (email.endsWith('@estudante.sesisenai.org.br')) {
+        return 'student';
+    } else if (email.endsWith('@edu.sesisc.org.br')) {
+        return 'teacher';
+    } else if (email.endsWith('@sesisc.org.br')) {
+        return 'coordination';
+    }
+
+    return null;
+}
 
 export function Login() {
     const navigation = useNavigation();
@@ -11,7 +22,8 @@ export function Login() {
     const [password, setPassword] = useState(''); // Defina password como um estado inicial vazio
 
     const handleLogin = async () => {
-        navigation.navigate('Main', { showTabs: true});
+        const userType = getUserType(email); // Obtenha o tipo de usuário com base no email
+        navigation.navigate('Main', { userType }); // Passe o tipo de usuário como um 
     };
 
     const handleCadastro = () => {
@@ -28,7 +40,7 @@ export function Login() {
 
     <View style={styles.centralize}> 
       <img src={imageToAdd} style={styles.image} alt="Image" />
-      <Text style={{fontSize: 25, marginBottom: 30}}>Faça seu Login</Text>
+      <Text style={{fontSize: 23, marginBottom: 10}}>Faça seu Login</Text>
     </View>
 
     <View style={styles.centralize}> 
@@ -49,7 +61,7 @@ export function Login() {
         
         <View>
             <TouchableOpacity onPress={handleEsqueceuSenha}>
-                <Text>Esqueceu a Senha?</Text>
+                <Text style={{color:'#0980db'}}>Esqueceu a Senha?</Text>
             </TouchableOpacity>
         </View>
 
@@ -64,8 +76,7 @@ export function Login() {
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>
        </View> 
         </TouchableOpacity>
-    </View>
-        <View style={{marginBottom: 300}}> </View>
+    </View> 
     </View>
   );
 }
@@ -81,7 +92,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 300,
+        width: 200,
+        marginBottom: 20,
     },
     login: {
 

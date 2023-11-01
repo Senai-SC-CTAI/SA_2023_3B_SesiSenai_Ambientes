@@ -37,7 +37,7 @@ export function Cadastro() {
     <View style={styles.container}>
         <View style={styles.centralize}> 
             <img src={imageToAdd} style={styles.image} alt="Image" />
-            <Text style={{fontSize: 25, marginBottom: 30}}>Cadastre-se</Text>
+            <Text style={{fontSize: 23, marginBottom: 10}}>Cadastre-se</Text>
         </View>
 
     <View style={styles.centralize}> 
@@ -75,7 +75,6 @@ export function Cadastro() {
                 </TouchableOpacity>
             </View> 
     </View>
-        <View style={{marginBottom: 300}}> </View>
     </View>
   );
 }
@@ -91,7 +90,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 300,
+        width: 200,
+        marginBottom: 20,
     },
     Input: {
         backgroundColor: '#f8f4f4',

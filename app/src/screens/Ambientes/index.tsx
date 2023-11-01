@@ -33,6 +33,9 @@ return (
                         <TouchableOpacity style={styles.reservarButton} onPress={() => reservarAmbiente(ambiente)}>
                             <Text style={styles.reservarButtonText}>Reservar</Text>
                         </TouchableOpacity>
+                           <TouchableOpacity style={styles.reservarButton} onPress={() => reservarAmbiente(ambiente)}>
+                            <Text style={styles.reservarButtonText}>Informações</Text>
+                        </TouchableOpacity>
                     </View>
                 ))
             )}
@@ -81,6 +84,7 @@ const styles = StyleSheet.create({
     reservarButton: {
         backgroundColor: '#005caa',
         padding: 10,
+        marginTop: 2,
     },
     reservarButtonText: {
         color: 'white',
