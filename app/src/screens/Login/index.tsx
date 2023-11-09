@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import imageToAdd from "../../../assets/img.png";
 import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
+import axios from 'axios';
 
 import { useNavigation } from '@react-navigation/native';
 
-function getUserType(email) {
-    if (email.endsWith('@estudante.sesisenai.org.br')) {
-        return 'student';
-    } else if (email.endsWith('@edu.sesisc.org.br')) {
-        return 'teacher';
-    } else if (email.endsWith('@sesisc.org.br')) {
-        return 'coordination';
-    }
-
-    return null;
-}
-
 export function Login() {
     const navigation = useNavigation();
-    const [email, setEmail] = useState(''); // Defina email como um estado inicial vazio
-    const [password, setPassword] = useState(''); // Defina password como um estado inicial vazio
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
     const handleLogin = async () => {
-        const userType = getUserType(email); // Obtenha o tipo de usuário com base no email
-        navigation.navigate('Main', { userType }); // Passe o tipo de usuário como um 
+
+        if (!email || !senha) {
+            alert('Por favor, preencha os campos de e-mail e senha.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:8090/usuario', {
+                email,
+                senha
+            });
+
+            if (response.status === 200) {
+                const userType = response.data.accountType; // Aqui estamos pegando o accountType do response
+                navigation.navigate('Main', { userType }); // Passe o tipo de usuário como um 
+            } else {
+                alert('Erro ao autenticar usuário.');
+            }
+        } catch (error) {
+            console.error('Erro ao autenticar usuário', error);
+        }
     };
 
     const handleCadastro = () => {
@@ -48,15 +56,15 @@ export function Login() {
             placeholder="Email"
             style={styles.Input}
             value={email}
-            onChangeText={(text) => setEmail(text)} // Atualize o estado do email
+            onChangeText={(text) => setEmail(text)} 
              />
 
          <TextInput
             placeholder="Senha"
             style={styles.Input}
             secureTextEntry={true}
-            value={password}
-            onChangeText={(text) => setPassword(text)} // Atualize o estado da senha
+            value={senha}
+            onChangeText={(text) => setSenha(text)} 
             />
         
         <View>

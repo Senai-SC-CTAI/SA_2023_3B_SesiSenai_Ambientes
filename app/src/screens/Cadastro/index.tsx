@@ -1,36 +1,56 @@
 import React, { useState } from 'react';
 import imageToAdd from "../../../assets/img.png";   
-import { View, StyleSheet, Button, TextInput, TouchableOpacity, Text} from 'react-native';
+import { View, StyleSheet,TextInput, TouchableOpacity, Text} from 'react-native';
+import axios from 'axios';
+
 
 import { useNavigation } from '@react-navigation/native';
-
 
 
 export function Cadastro() {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [nome, setNome] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmSenha, setConfirmSenha] = useState('');
     const [accountType, setAccountType] = useState('');
 
-    const handleCadastro = () => {
-        // Verificar se o email atende aos requisitos
-        if (email.endsWith('@estudante.sesisenai.org.br')) {
+    const handleEmailChange = (text) => {
+        setEmail(text);
+        
+        if (text.endsWith('@estudante.sesisenai.org.br')) {
             setAccountType('estudante');
-        } else if (email.endsWith('@edu.sesisc.org.br')) {
+        } else if (text.endsWith('@edu.sesisc.org.br')) {
             setAccountType('professor');
         } else {
-            alert('Email não válido.');
-            return;
+            setAccountType('');
         }
+    };
 
+    const handleCadastro = async () => {
         // Outras validações, como senha igual a confirmação de senha, etc.
-        if (password !== confirmPassword) {
+        if (senha !== confirmSenha) {
             alert('As senhas não coincidem.');
             return;
         }
 
-        navigation.navigate('Login');
+        // Aqui é onde fazemos a chamada para o servidor para criar o usuário
+        try {
+            const response = await axios.post('http://localhost:8090/usuario', {
+                nome,    
+                email,
+                senha,
+                accountType
+            });
+
+            if (response.status === 200) {
+                navigation.navigate('Login');
+            } else {
+                alert('Erro ao criar usuário.');
+            }
+        } catch (error) {
+            console.error('Erro ao criar usuário', error);
+        }
     };
   
     return (
@@ -42,26 +62,32 @@ export function Cadastro() {
 
     <View style={styles.centralize}> 
     <TextInput
+                    placeholder="Nome"
+                    style={styles.Input}
+                    value={nome}
+                    onChangeText={(text) => setNome(text)}
+                />
+    <TextInput
                     placeholder="Email"
                     style={styles.Input}
                     value={email}
-                    onChangeText={(text) => setEmail(text)}
+                    onChangeText={handleEmailChange}
                 />
 
                 <TextInput
                     placeholder="Senha"
                     style={styles.Input}
                     secureTextEntry={true}
-                    value={password}
-                    onChangeText={(text) => setPassword(text)}
+                    value={senha}
+                    onChangeText={(text) => setSenha(text)}
                 />
 
                 <TextInput
                     placeholder="Confirmar Senha"
                     style={styles.Input}
                     secureTextEntry={true}
-                    value={confirmPassword}
-                    onChangeText={(text) => setConfirmPassword(text)}
+                    value={confirmSenha}
+                    onChangeText={(text) => setConfirmSenha(text)}
                 />
 
         <TouchableOpacity style={styles.button} onPress={handleCadastro}>
@@ -78,6 +104,7 @@ export function Cadastro() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
     container: {

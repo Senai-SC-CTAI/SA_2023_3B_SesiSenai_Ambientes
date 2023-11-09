@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 200,
-        marginBottom: 20,
+        marginBottom: 70,
         marginTop: 50,
     },
     Input: {
