@@ -9,16 +9,18 @@ import { TelaDeCriacaoDeAmbiente } from '../screens/TelaDeCriacaoDeAmbiente';
 
 const Tab = createMaterialTopTabNavigator();
 export function TabNavigator({ route }) {
-    const userType = route?.params?.userType || 'student';  
+    const userType = route?.params?.userType || 'aluno';  
     const showTabs = route?.params?.showTabs || false;
+    const userEmail = route?.params?.userEmail;
+    const userNome = route?.params?.userNome;
 
     return (
         <Tab.Navigator>
-            {(userType === 'student' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
-            {(userType === 'teacher' || userType === 'coordination') && <Tab.Screen name="Ambientes" component={Ambientes} />}
-            {(userType === 'teacher' || userType === 'coordination') && <Tab.Screen name="Reservas" component={Reservas} />}
-            <Tab.Screen name="Perfil" component={Perfil} />
-            {userType === 'coordination' && <Tab.Screen name="Pessoas" component={Pessoas} />}
+            {(userType === 'aluno' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
+            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" component={Ambientes} />}
+            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Reservas" component={Reservas} />}
+            <Tab.Screen name="Perfil" component={Perfil} initialParams={{ userNome, userEmail, userType }} />
+            {userType === 'coordenacao' && <Tab.Screen name="Pessoas" component={Pessoas} />}
         </Tab.Navigator>
     );
 }

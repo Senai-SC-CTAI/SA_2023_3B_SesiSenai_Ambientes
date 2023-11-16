@@ -26,13 +26,8 @@ export function Login() {
     const handleLogin = async () => {
         const response = await logar(email, senha);
         if (response) {
-            const userEmail = response.email;
-            const userNome = response.nome;
             const userType = response.accountType; // Aqui estamos pegando o accountType do response
-            navigation.navigate('Main', { userType, userEmail, userNome }); // Passe o tipo de usuário como um 
-            console.log(userType)
-        } else {
-            alert('Erro ao autenticar usuário.');
+            navigation.navigate('Main', { userType }); // Passe o tipo de usuário como um 
         }
     };
 

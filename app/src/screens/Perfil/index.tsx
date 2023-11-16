@@ -2,10 +2,13 @@ import React from 'react';
 import imageToAdd from "../../../assets/user.png";
 import { View, StyleSheet, Button, Text, TouchableOpacity, Image } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function Perfil() {
+    const route = useRoute();
     const navigation = useNavigation();
+    const { userNome, userType, userEmail } = route.params;
 
     return (
         <View style={styles.container}>
@@ -16,9 +19,9 @@ export function Perfil() {
                             <Image source={imageToAdd} style={styles.icon} resizeMode="cover" />
                         </View>
                         <View style={styles.infoContainer}>
-                            <Text style={styles.name}>Nome do Usuário</Text>
-                            <Text style={styles.role}>Função do Usuário</Text>
-                            <Text style={styles.email}>usuario@example.com</Text>
+                            <Text style={styles.name}>{userNome}</Text>
+                            <Text style={styles.role}>{userType}</Text>
+                            <Text style={styles.email}>{userEmail}</Text>
                         </View>
                     </View>
                 </View>
