@@ -10,6 +10,13 @@ export function Perfil() {
     const navigation = useNavigation();
     const { userNome, userType, userEmail } = route.params;
 
+    const handleLogout = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.profileBackground}>
@@ -30,7 +37,7 @@ export function Perfil() {
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Editar Perfil</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={handleLogout}>
                     <Text style={styles.buttonText}>Deslogar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}>
