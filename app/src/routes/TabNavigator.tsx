@@ -6,21 +6,24 @@ import { Perfil } from '../screens/Perfil';
 import { Pessoas } from '../screens/Pessoas';
 import { Salas } from '../screens/Salas';
 import { TelaDeCriacaoDeAmbiente } from '../screens/TelaDeCriacaoDeAmbiente';
+import { EditarPerfil } from '../screens/EditarPerfil';
+
 
 const Tab = createMaterialTopTabNavigator();
 export function TabNavigator({ route }) {
-    const userType = route?.params?.userType || 'aluno';  
+    const userType = route?.params?.userType || 'estudante';  
     const showTabs = route?.params?.showTabs || false;
     const userEmail = route?.params?.userEmail;
     const userNome = route?.params?.userNome;
 
     return (
         <Tab.Navigator>
-            {(userType === 'aluno' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
+            {(userType === 'estudante' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
             {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" component={Ambientes} />}
             {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Reservas" component={Reservas} />}
-            <Tab.Screen name="Perfil" component={Perfil} initialParams={{ userNome, userEmail, userType }} />
             {userType === 'coordenacao' && <Tab.Screen name="Pessoas" component={Pessoas} />}
+            {userType === '???' && <Tab.Screen name="EditarPerfil" component={EditarPerfil} />}
+            <Tab.Screen name="Perfil" component={Perfil} initialParams={{ userNome, userEmail, userType }} />
         </Tab.Navigator>
     );
 }

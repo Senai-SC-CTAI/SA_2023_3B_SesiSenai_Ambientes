@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         color: '#EEEEEE',
     },
     email: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#d0e1f9',
     },
     buttonsSection: {

@@ -22,19 +22,19 @@ export function Cadastro() {
             setAccountType('estudante');
         } else if (text.endsWith('@edu.sesisc.org.br')) {
             setAccountType('professor');
+        } else if (text.endsWith('@sc.senai.br')) {
+            setAccountType('coordenacao');
         } else {
             setAccountType('');
         }
     };
 
     const handleCadastro = async () => {
-        // Outras validações, como senha igual a confirmação de senha, etc.
         if (senha !== confirmSenha) {
             alert('As senhas não coincidem.');
             return;
         }
 
-        // Aqui é onde fazemos a chamada para o servidor para criar o usuário
         try {
             const response = await axios.post('http://localhost:8090/usuario', {
                 nome,    

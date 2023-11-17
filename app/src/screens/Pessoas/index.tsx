@@ -3,14 +3,12 @@ import imageToAdd from "../../../assets/people.png";
 import { View, StyleSheet, Text, Image, ScrollView } from 'react-native';
 
 export function Pessoas() {
-    const [pessoas, setPessoas] = useState([]); // Estado para armazenar a lista de pessoas
+    const [pessoas, setPessoas] = useState([]);
 
-    // Simule o carregamento de algumas pessoas (você pode preenchê-las com os dados reais)
     useEffect(() => {
         setPessoas([
             { nome: 'João Silva', email: 'joao@example.com', foto: require('../../../assets/user.png') },
             { nome: 'Maria Souza', email: 'maria@example.com', foto: require('../../../assets/user.png') },
-            // Adicione mais pessoas conforme necessário
         ]);
     }, []);
 
@@ -23,13 +21,11 @@ export function Pessoas() {
                         <Text style={styles.message}>Ainda não há nenhuma pessoa registrada</Text>
                     </View>
                 ) : (
-                    // Mapeie a lista de pessoas e exiba cada uma na tela
                     pessoas.map((pessoa, index) => (
                         <View key={index} style={styles.pessoaContainer}>
                             <Image source={pessoa.foto} style={styles.fotoPessoa} />
                             <Text style={styles.nomePessoa}>{pessoa.nome}</Text>
                             <Text style={styles.emailPessoa}>{pessoa.email}</Text>
-                            {/* Outras informações da pessoa, se necessário */}
                         </View>
                     ))
                 )}
@@ -55,16 +51,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     pessoaContainer: {
-        backgroundColor: '#005caa', // Cor de fundo para a pessoa
+        backgroundColor: '#005caa', 
         margin: 10,
-        borderRadius: 10, // Borda arredondada
+        borderRadius: 10, 
         padding: 10,
-        alignItems: 'center', // Centraliza o conteúdo horizontalmente
+        alignItems: 'center', 
     },
     fotoPessoa: {
         width: 50,
         height: 50,
-        borderRadius: 50, // Borda arredondada para a foto
+        borderRadius: 50, 
     },
     nomePessoa: {
         fontSize: 18,
@@ -77,7 +73,4 @@ const styles = StyleSheet.create({
     },
 });
 
-// Função para adicionar uma pessoa à lista (se necessário)
-function adicionarPessoa(novaPessoa) {
-    // Implemente a lógica para adicionar uma pessoa à lista de pessoas
-}
+
