@@ -25,3 +25,6 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.overlay-blue {
+  background-color: rgba(0, 0, 255, 0.5);
+}

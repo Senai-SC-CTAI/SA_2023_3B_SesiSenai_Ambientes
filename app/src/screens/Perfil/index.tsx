@@ -1,6 +1,5 @@
 import React from 'react';
-import imageToAdd from "../../../assets/user.png";
-import { View, StyleSheet, Button, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 
 
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -17,35 +16,36 @@ export function Perfil() {
         });
     };
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.profileBackground}>
-                <View style={styles.blueBackground}>
-                    <View style={styles.profileSection}>
-                        <View style={styles.iconContainer}>
-                            <Image source={imageToAdd} style={styles.icon} resizeMode="cover" />
-                        </View>
-                        <View style={styles.infoContainer}>
-                            <Text style={styles.name}>{userNome}</Text>
-                            <Text style={styles.role}>{userType}</Text>
-                            <Text style={styles.email}>{userEmail}</Text>
-                        </View>
+
+return (
+    <View style={styles.container}>
+        <View style={styles.profileBackground}>
+            <View style={styles.blueBackground}>
+                <View style={styles.profileSection}>
+                    <View style={[styles.iconContainer, {backgroundColor: "#037bfc"}]}>
+                        <Text style={styles.icon}>{userNome.slice(0,2).toUpperCase()}</Text>
+                    </View>
+                    <View style={styles.infoContainer}> 
+                        <Text style={styles.name}>{userNome}</Text>
+                        <Text style={styles.role}>{userType}</Text>
+                        <Text style={styles.email}>{userEmail}</Text>
                     </View>
                 </View>
             </View>
-            <View style={styles.buttonsSection}>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Editar Perfil</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                    <Text style={styles.buttonText}>Deslogar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Excluir Perfil</Text>
-                </TouchableOpacity>
-            </View>
         </View>
-    );
+        <View style={styles.buttonsSection}>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Editar Perfil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                <Text style={styles.buttonText}>Deslogar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Excluir Perfil</Text>
+            </TouchableOpacity>
+        </View>
+    </View>
+);
 }
 
 const styles = StyleSheet.create({
@@ -69,14 +69,16 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
     },
     iconContainer: {
-        borderRadius: 75,
-        padding: 10,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
         marginRight: 20,
     },
     icon: {
-        width: 150,
-        height: 150,
-        borderRadius: 75,
+        color: 'white',
+        fontSize: 20,
     },
     infoContainer: {
         flex: 1,
@@ -95,10 +97,9 @@ const styles = StyleSheet.create({
         color: '#d0e1f9',
     },
     buttonsSection: {
-        paddingHorizontal: 20,
-        paddingTop: 20,
-        alignItems: 'center', 
+        paddingTop: 200,
         justifyContent: 'center',
+        alignItems: 'center',
     },
     button: {
         backgroundColor: '#005caa',

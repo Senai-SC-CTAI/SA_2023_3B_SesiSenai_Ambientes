@@ -35,6 +35,11 @@ export function Cadastro() {
             return;
         }
 
+        if (accountType == '') {
+            alert('Você não está usando um email institucional');
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:8090/usuario', {
                 nome,    

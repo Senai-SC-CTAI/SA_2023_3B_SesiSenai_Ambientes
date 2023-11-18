@@ -5,7 +5,6 @@ import { Reservas } from '../screens/Reservas';
 import { Perfil } from '../screens/Perfil';
 import { Pessoas } from '../screens/Pessoas';
 import { Salas } from '../screens/Salas';
-import { TelaDeCriacaoDeAmbiente } from '../screens/TelaDeCriacaoDeAmbiente';
 import { EditarPerfil } from '../screens/EditarPerfil';
 
 
