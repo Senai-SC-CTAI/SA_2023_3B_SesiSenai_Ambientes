@@ -28,20 +28,21 @@ export function Login() {
         if (response) {
             const userEmail = response.email;
             const userNome = response.nome;
-            const userType = response.accountType; // Aqui estamos pegando o accountType do response
-            navigation.navigate('Main', { userType, userEmail, userNome }); // Passe o tipo de usuário como um 
-            console.log(userType)
+            const userType = response.accountType; 
+            const userId = response.id;
+            navigation.navigate('Main', { userType, userEmail, userNome, userId }); 
+            console.log(userId)
         } else {
             alert('Erro ao autenticar usuário.');
         }
     };
 
     const handleCadastro = () => {
-        navigation.navigate('Cadastro',{showTabs: false}); // Navegar para a tela de cadastro
+        navigation.navigate('Cadastro',{showTabs: false}); 
     };
 
     const handleEsqueceuSenha = () => {
-        navigation.navigate('EsqueceuSenha',{showTabs: false}); // Navegar para a tela de cadastro
+        navigation.navigate('EsqueceuSenha',{showTabs: false}); 
     };
 
 
@@ -114,6 +115,9 @@ const styles = StyleSheet.create({
         width: 250,
         height: 45,
         fontSize: 20,
+        borderWidth: 2,
+        borderRadius: 3,
+        borderColor: "#005caa",
         margin: 12,
         padding: 10,
     },

@@ -1,96 +1,182 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import imageToAdd from "../../../assets/paper-plane.png";
-import { useNavigation } from '@react-navigation/native';
+import { View, StyleSheet, Text, Button, TextInput, Modal} from 'react-native';
+
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function Ambientes() {
+    const route = useRoute();
     const navigation = useNavigation();
     const [ambientes, setAmbientes] = useState([]);
+    const [dia, setDia] = useState('');
+    const [horario, setHorario] = useState('');
+    const [motivo, setMotivo] = useState('');
+    const { userId } = route.params;
 
- useEffect(() => {
-    setAmbientes([
-        { nome: 'Sala de Reunião', imagem: require('../../../assets/reuniao.png') },
-        { nome: 'Laboratório', imagem: require('../../../assets/laboratorio.png') },
-    ]);
-}, []);
 
-return (
-    <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+    useEffect(() => {
+        fetch('http://localhost:8090/ambiente')
+            .then(response => response.json())
+            .then(data => setAmbientes(data));
+    }, []);
+  
+    const [modalVisible, setModalVisible] = useState(false);
+    const [currentAmbiente, setCurrentAmbiente] = useState(null);
+    
+    const handleReserve = (ambiente) => {
+        setCurrentAmbiente(ambiente);
+        setModalVisible(true);
+    };
+
+    const handleReserveSubmit = () => {
+        const reserva = {
+            usuario: { id: userId }, 
+            ambiente: { id: currentAmbiente.id },
+            motivo: motivo,
+            data: dia,
+            hora: horario
+        };
+        
+        fetch(`http://localhost:8090/usuario/${userId}`)
+        .then(response => response.json())
+        .then(usuario => {
+            const reserva = {
+                usuario: usuario, 
+                ambiente: { id: currentAmbiente.id },
+                motivo: motivo,
+                data: dia,
+                hora: horario
+            };
+        
+            fetch('http://localhost:8090/reserva', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reserva)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Reserva feita com sucesso!');
+                    setModalVisible(false);
+                } else {
+                    alert('Erro ao fazer reserva.');
+                }
+            });
+        });
+    };
+    
+    return (
+        <View style={styles.container}>
             {ambientes.length === 0 ? (
-                <View style={styles.centralize}>
-                    <img src={imageToAdd} style={styles.image} />
-                    <Text style={styles.message}>Não há Ambientes criados</Text>
-                </View>
+                <Text style={styles.textoVazio}>Ainda não há nenhum ambiente</Text>
             ) : (
-                // Mapeie a lista de ambientes e exiba cada um na tela
                 ambientes.map((ambiente, index) => (
-                    <View key={index} style={styles.ambienteContainer}>
-                        <Text style={styles.ambienteName}>{ambiente.nome}</Text>
-                        <View style={styles.ambienteContent}>
-                          <img src={ambiente.imagem} style={styles.ambienteImage} />
-                        </View>
-                        <TouchableOpacity style={styles.reservarButton} onPress={() => reservarAmbiente(ambiente)}>
-                            <Text style={styles.reservarButtonText}>Reservar</Text>
-                        </TouchableOpacity>
-                           <TouchableOpacity style={styles.reservarButton} onPress={() => reservarAmbiente(ambiente)}>
-                            <Text style={styles.reservarButtonText}>Informações</Text>
-                        </TouchableOpacity>
+                    <View key={index} style={styles.item}>
+                        <Text style={styles.nome}>{ambiente.nome}</Text>
+                        <Text style={styles.descricao}>{ambiente.descricao}</Text>
+                        <Button title="Reservar" onPress={() => handleReserve(ambiente)} />
                     </View>
                 ))
             )}
-        </ScrollView>
-    </View>
-);
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Reservar {currentAmbiente?.nome}</Text>
+                    <TextInput
+    style={styles.input}
+    placeholder="Dia (yyyy-MM-dd)"
+    onChangeText={text => setDia(text)}
+    value={dia}
+/>
+<TextInput
+    style={styles.input}
+    placeholder="Horário (HH:mm)"
+    onChangeText={text => setHorario(text)}
+    value={horario}
+/>
+    <TextInput
+    style={styles.input}
+    placeholder="Motivo"
+    onChangeText={text => setMotivo(text)}
+    value={motivo}
+        />
+        <Button
+         title="Reservar"
+         onPress={handleReserveSubmit}
+        />
+        <Button
+            title="Fechar"
+            onPress={() => setModalVisible(!modalVisible)}
+        />
+             </View>
+        </View>
+    </Modal>
+</View>
+  );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
-    },
-    centralize: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    image: {
-        height: 150,
-        width: 150,
-        marginBottom: 20,
-    },
-    contentContainer: {
-        flexGrow: 1,
-    },
-    ambienteContainer: {
-        backgroundColor: '#f8f4f4', // Cor de fundo para o quadrado
-        margin: 10,
-        borderRadius: 10, // Borda arredondada
-        overflow: 'hidden', // Para cortar qualquer conteúdo que saia dos limites
-    },
-    ambienteContent: {
-        alignItems: 'center',
-        paddingTop: 10,
-    },
-    ambienteImage: {
-        width: '100%',
-        height: '100%',
-    },
-    ambienteName: {
-        fontSize: 18,
-        marginTop: 5,
-        alignSelf: 'center'
-    },
-    reservarButton: {
-        backgroundColor: '#005caa',
         padding: 10,
-        marginTop: 2,
+        backgroundColor: '#f5f5f5',
     },
-    reservarButtonText: {
-        color: 'white',
+    textoVazio: {
         textAlign: 'center',
+        color: '#333',
+        fontSize: 18,
     },
-    message: {
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0,0,0,0.5)', // Isso adiciona um fundo escuro semi-transparente
+    },
+    modalView: {
+        width: '80%', // Isso garante que o modal tenha 80% da largura da tela
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center",
         fontSize: 20,
+        fontWeight: 'bold',
+    },
+    item: {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+    },
+    nome: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    descricao: {
+        fontSize: 16,
+        color: '#666',
     },
 });

@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
 
 const navigation = [
-  { name: 'Ambientes', href: '/planejamento', current: false },
-  { name: 'Criar Ambientes', href: '/sobre', current: false },
+  { name: 'Ambientes', href: '/home', current: false },
+  { name: 'Criar Ambientes', href: '/criarambiente', current: false },
   { name: 'Reservas', href: '/sobre', current: false },
-  { name: 'Usuarios', href: '/sobre', current: false },
+  { name: 'Usuarios', href: '/usuarios', current: false },
   { name: 'Perfil', href: '/perfil', current: false },
 ]
 

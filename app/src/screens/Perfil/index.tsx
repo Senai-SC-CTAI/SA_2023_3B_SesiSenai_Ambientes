@@ -40,7 +40,7 @@ return (
             <TouchableOpacity style={styles.button} onPress={handleLogout}>
                 <Text style={styles.buttonText}>Deslogar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.buttonExcluir}>
                 <Text style={styles.buttonText}>Excluir Perfil</Text>
             </TouchableOpacity>
         </View>
@@ -103,6 +103,15 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#005caa',
+        borderRadius: 6,
+        height: 45,
+        width: 200,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    buttonExcluir: {
+        backgroundColor: '#ef4444',
         borderRadius: 6,
         height: 45,
         width: 200,

@@ -14,11 +14,12 @@ export function TabNavigator({ route }) {
     const showTabs = route?.params?.showTabs || false;
     const userEmail = route?.params?.userEmail;
     const userNome = route?.params?.userNome;
+    const userId = route?.params?.userId;
 
     return (
         <Tab.Navigator>
             {(userType === 'estudante' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
-            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" component={Ambientes} />}
+            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" initialParams={{ userId, userNome}} component={Ambientes} />}
             {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Reservas" component={Reservas} />}
             {userType === 'coordenacao' && <Tab.Screen name="Pessoas" component={Pessoas} />}
             {userType === '???' && <Tab.Screen name="EditarPerfil" component={EditarPerfil} />}

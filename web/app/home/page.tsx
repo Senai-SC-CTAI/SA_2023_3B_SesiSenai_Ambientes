@@ -1,105 +1,83 @@
-'use client'
-import React, { useState } from 'react'
-import { Header } from '../../components/index';
-import '../globals.css'
+"use client"
+import React, { useState, useEffect } from 'react';
+import { Header } from '@/components';
 
-interface Reserva {
-    id: number;
-    usuario_id: number;
-    ambiente_id: number;
-    motivo: string;
-    data: Date;
-    hora: string;
-  }
+export function Home() {
+  const [ambientes, setAmbientes] = useState([]);
+  const [ambienteEditando, setAmbienteEditando] = useState(null);
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
 
-const Home: React.FC = () => {
-  const [reserva, setReserva] = useState<Reserva>({
-    id: 0,
-    usuario_id: 0,
-    ambiente_id: 0,
-    motivo: '',
-    data: new Date(),
-    hora: '',
-  });
+  useEffect(() => {
+      fetch('http://localhost:8090/ambiente')
+          .then(response => response.json())
+          .then(data => setAmbientes(data));
+  }, []);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReserva({ ...reserva, [event.target.name]: event.target.value });
+  const handleEdit = (ambiente) => {
+      setNome(ambiente.nome);
+      setDescricao(ambiente.descricao);
+      setAmbienteEditando(ambiente);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Aqui você pode adicionar a lógica para enviar os dados para o servidor
-    console.log(reserva);
+  const handleSave = async () => {
+      const response = await fetch(`http://localhost:8090/ambiente/${ambienteEditando.id}`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              nome: nome,
+              descricao: descricao,
+          }),
+      });
+
+      if (response.ok) {
+          // Atualize a lista de ambientes
+          const updatedAmbiente = await response.json();
+          setAmbientes(ambientes.map(ambiente => ambiente.id === updatedAmbiente.id ? updatedAmbiente : ambiente));
+          setAmbienteEditando(null);
+      } else {
+          alert('Erro ao salvar ambiente');
+      }
   };
 
   return (
-    <div className='w-screen h-screen bg-no-repeat bg-cover bg-white flex flex-col'>
-      <Header />
-      <div className="flex-1 flex items-center justify-center">
-        <form onSubmit={handleSubmit} className=" space-y-4 w-1/4 mb-32">
-          <div>
-            <label htmlFor="ambiente_id" className=" text-sm font-medium text-gray-700">
-              Ambiente
-            </label>
-            <input
-              type="number"
-              name="ambiente_id"
-              id="ambiente_id"
-              className="mt-1 text-black  w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={reserva.ambiente_id}
-              onChange={handleInputChange}
-            />
+      <div className='bg-white h-screen'>
+          <Header />
+          <div className='flex flex-col items-center justify-center w-screen bg-no-repeat bg-cover relative'>
+              <div className="flex justify-center mt-16">
+                  <div className="container mx-auto px-4 flex flex-col items-start">
+                      {ambientes.length === 0 ? (
+                          <div className="flex flex-col items-center justify-center">
+                              <p className="text-center text-gray-500">Ainda não há nenhum ambiente</p>
+                          </div>
+                      ) : (
+                          ambientes.map((ambiente, index) => (
+                              <div key={index} className="flex items-center">
+                                  <div className="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                                      {ambiente.nome.substring(0, 2).toUpperCase()}
+                                  </div>
+                                  <div className='p-4'> 
+                                      <p className="font-bold text-black">{ambiente.nome}</p>
+                                      <p className="text-sm text-gray-500">{ambiente.descricao}</p>
+                                      <button className="text-black" onClick={() => handleEdit(ambiente)}>Editar</button>
+                                  </div>
+                              </div>
+                          ))
+                      )}
+                      {ambienteEditando && (
+                          <div>
+                              <input className="border-2 border-black text-black" type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                              <input className="border-2 border-black text-black" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
+                              <button className="text-black" onClick={handleSave}>Salvar</button>
+                          </div>
+                      )}
+                  </div>
+              </div>
           </div>
-          <div>
-            <label htmlFor="data" className=" text-sm font-medium text-gray-700">
-              Data
-            </label>
-            <input
-              type="date"
-              name="data"
-              id="data"
-              className="mt-1 text-black  w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={reserva.data}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="hora" className="block text-sm font-medium text-gray-700">
-              Hora
-            </label>
-            <input
-              type="time"
-              name="hora"
-              id="hora"
-              className="mt-1 text-black block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={reserva.hora}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="motivo" className="block text-sm font-medium text-gray-700">
-              Motivo
-            </label>
-            <input
-              type="text"
-              name="motivo"
-              id="motivo"
-              className="mt-1 text-black block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={reserva.motivo}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Solicitar Reserva
-          </button>
-        </form>
       </div>
-    </div>
   );
-};
+}
 
-
-export default Home
+export default Home;

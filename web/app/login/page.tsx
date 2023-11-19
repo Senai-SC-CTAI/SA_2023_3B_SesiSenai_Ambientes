@@ -42,7 +42,7 @@ export const Login: React.FC = () => {
     };
 
     const handleEsqueceuSenha = () => {
-        router.push('/EsqueceuSenha');
+        router.push('/esqueceusenha');
     };
 
     return (
