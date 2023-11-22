@@ -8,7 +8,7 @@
 - [ ] RF4: O professor pode editar os dados cadastrados
 - [x] RF5: O professor pode desabilitar o cadastro 
 - [x] RF6: O professor pode visualizar todos os ambientes cadastrados
-- [ ] RF7: O professor pode solicitar reserva de ambientes
+- [x] RF7: O professor pode solicitar reserva de ambientes
 - [ ] RF8: O professor pode cancelar solicitação de ambiente
 
       
@@ -35,5 +35,5 @@
 - [x] RF23: A coordenação pode visualizar todos os ambiente cadastrados
 - [x] RF24: A coordenação pode editar ambiente cadastrado
 - [ ] RF24: A coordenação pode remover agendamento de ambiente
-- [ ] RF25: A coordenação cadastrar novo agendamento de ambiente
+- [x] RF25: A coordenação cadastrar novo agendamento de ambiente
 
