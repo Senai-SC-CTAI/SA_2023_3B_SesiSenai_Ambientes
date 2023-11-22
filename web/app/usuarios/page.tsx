@@ -12,7 +12,7 @@ export function Usuarios() {
     }, []);
 
     return (
-        <div className='bg-white h-screen'>
+        <div className='bg-white min-h-screen'>
         <Header />
         <div className='flex flex-col items-center justify-center w-screen bg-no-repeat bg-cover relative'>
             <div className="flex justify-center mt-16">
@@ -23,7 +23,7 @@ export function Usuarios() {
                         </div>
                     ) : (
                         pessoas.map((pessoa, index) => (
-                            <div key={index} className="flex items-center">
+                            <div key={index} className="flex bg-white items-center border-2 border-black p-4 mb-4 rounded w-96 rounded-lg p-4 mb-4 shadow-md w-96"> 
                                 <div className="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white">
                                     {pessoa.nome.substring(0, 2).toUpperCase()}
                                 </div>

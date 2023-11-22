@@ -30,23 +30,23 @@ function CriarAmbiente() {
     };
 
     return (
-        <div className='w-screen h-screen bg-no-repeat bg-cover bg-white flex flex-col'>
+        <div className='bg-white h-screen'>
         <Header />
-        <div className='flex-1 flex items-center justify-center'>
-        <form onSubmit={handleSubmit}>
-            <label className="block">
+        <div className='flex-1 flex items-center justify-center h-96'>
+        <form className="text-center  bg-gray-100 rounded-lg p-4 mb-4 shadow-md w-96" onSubmit={handleSubmit}>
+        <label className="block mb-4">
                 <span className="text-gray-700">Nome</span>
-                <input className="mt-1 block w-full text-black border-black border-2" type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                <input className="mt-1 block w-full text-black border-black border-2 rounded p-2" type="text" value={nome} onChange={e => setNome(e.target.value)} /> 
             </label>
-            <label className="block">
+            <label className="block mb-4">
                 <span className="text-gray-700">Descrição</span>
-                <input className="mt-1 block w-full text-black border-black border-2" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
+                <input className="mt-1 block w-full text-black border-black border-2 rounded p-2" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} /> 
             </label>
-            <input className="text-black" type="submit" value="Criar Ambiente" />
+            <input className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" type="submit" value="Criar Ambiente" /> 
         </form>
-        </div>
-        </div>
-    );
+    </div>
+    </div>
+);
 }
 
 export default CriarAmbiente;

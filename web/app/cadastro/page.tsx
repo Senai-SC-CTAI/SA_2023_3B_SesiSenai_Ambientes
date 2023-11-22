@@ -57,8 +57,9 @@ export function Cadastro() {
     return (
         <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-no-repeat bg-cover relative" style={{ backgroundImage: `url("/fundo2.png")`}}>
         <div className='overlay-blue absolute inset-0'></div>
-        <img src='/senai-branco.png' className="w-72 mb-5 absolute top-20" alt="Image" />
-        <div className="flex flex-col items-center absolute border-2 p-10 border-blue-700 rounded bg-white"> 
+        <div className="relative"> 
+        <img src='/senai-branco.png' className="w-72 mb-5 absolute top-0 left-1/2 transform -translate-x-1/2" alt="Image" />
+        <div className="flex flex-col items-center justify-center border-2 p-10 border-blue-700 rounded bg-white mt-40"> 
         <h2 className="text-2xl mb-2 text-black">Cadastre-se</h2>
             <input
                 placeholder="Nome"
@@ -93,6 +94,7 @@ export function Cadastro() {
             <button className="text-lg text-black" onClick={() => router.back()}>
                 Voltar
             </button>
+            </div>
         </div>
     </div>
   );
