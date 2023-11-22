@@ -85,7 +85,7 @@ export function Login() {
              <TouchableOpacity style={styles.button} onPress={handleCadastro}>
                  <View style={styles.centralize}>
              <Text style={{fontSize: 18, color: '#fff'}}>Criar Conta</Text>
-       </View> 
+            </View> 
         </TouchableOpacity>
     </View> 
     </View>

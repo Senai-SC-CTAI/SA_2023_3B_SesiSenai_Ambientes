@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import imageToAdd from "../../../assets/calendar-clock.png";
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 
-export function Reservas() {
-    const [reservas, setReservas] = useState([]); // Estado para armazenar a lista de reservas
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-    // Simule a criação de algumas reservas (você pode preenchê-las com os dados reais)
+export function Reservas() {
+    const route = useRoute();
+    const navigation = useNavigation();
+    const [reservas, setReservas] = useState([]);
+    const { userEmail, userNome } = route.params;
+
     useEffect(() => {
-        setReservas([
-            { nomeAmbiente: 'Sala de Reunião', data: '2023-10-16', horario: '10:00 - 11:00' },
-            { nomeAmbiente: 'Laboratório', data: '2023-10-16', horario: '13:00 - 14:00' },
-            // Adicione mais reservas conforme necessário
-        ]);
+        fetch(`http://localhost:8090/reserva?userEmail=${userEmail}`)
+            .then(response => response.json())
+            .then(data => setReservas(data))
+            .catch(error => console.error(error));
     }, []);
 
     return (
@@ -23,12 +26,10 @@ export function Reservas() {
                         <Text style={styles.message}>Você não possui nenhuma reserva</Text>
                     </View>
                 ) : (
-                    // Mapeie a lista de reservas e exiba cada uma na tela
                     reservas.map((reserva, index) => (
                         <View key={index} style={styles.reservaContainer}>
-                            <Text style={styles.nomeAmbiente}>{reserva.nomeAmbiente}</Text>
-                            <Text style={styles.dataHorario}>{`Data: ${reserva.data}, Horário: ${reserva.horario}`}</Text>
-                            {/* Outras informações da reserva, se necessário */}
+                            <Text style={styles.nomeAmbiente}>{reserva.ambiente.nome}</Text>
+                            <Text style={styles.dataHorario}>{`Data: ${reserva.data}, Horário: ${reserva.hora.slice(0,5)}`}</Text>
                         </View>
                     ))
                 )}
@@ -54,9 +55,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     reservaContainer: {
-        backgroundColor: '#f8f4f4', // Cor de fundo para a reserva
+        backgroundColor: '#f8f4f4', 
+        borderRadius: 10,
+        borderColor: '#005caa',
         margin: 10,
-        borderRadius: 10, // Borda arredondada
+        borderWidth: 2,
         padding: 10,
     },
     nomeAmbiente: {
@@ -68,7 +71,3 @@ const styles = StyleSheet.create({
     },
 });
 
-// Função para adicionar uma reserva à lista (se necessário)
-function adicionarReserva(novaReserva) {
-    // Implemente a lógica para adicionar uma reserva à lista de reservas
-}
