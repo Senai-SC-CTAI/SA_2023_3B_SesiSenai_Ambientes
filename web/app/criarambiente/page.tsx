@@ -30,21 +30,22 @@ function CriarAmbiente() {
     };
 
     return (
-        <div className='bg-white h-screen'>
+        <div className='bg-gray-100 min-h-screen'>
         <Header />
+        <h2 className='text-black text-center text-3xl mt-16 mb-8'>Criar um novo Ambiente</h2>
         <div className='flex-1 flex items-center justify-center h-96'>
-        <form className="text-center  bg-gray-100 rounded-lg p-4 mb-4 shadow-md w-96" onSubmit={handleSubmit}>
-        <label className="block mb-4">
-                <span className="text-gray-700">Nome</span>
-                <input className="mt-1 block w-full text-black border-black border-2 rounded p-2" type="text" value={nome} onChange={e => setNome(e.target.value)} /> 
-            </label>
-            <label className="block mb-4">
-                <span className="text-gray-700">Descrição</span>
-                <input className="mt-1 block w-full text-black border-black border-2 rounded p-2" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} /> 
-            </label>
-            <input className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" type="submit" value="Criar Ambiente" /> 
-        </form>
-    </div>
+            <form className="text-center bg-white rounded-lg p-6 mb-6 shadow-lg w-full md:w-96" onSubmit={handleSubmit}>
+                <label className="block mb-4">
+                    <span className="text-gray-700 text-lg">Nome</span>
+                    <input className="mt-1 block w-full text-black border-gray-300 border-2 rounded p-2" type="text" value={nome} onChange={e => setNome(e.target.value)} /> 
+                </label>
+                <label className="block mb-4">
+                    <span className="text-gray-700 text-lg">Descrição</span>
+                    <input className="mt-1 block w-full text-black border-gray-300 border-2 rounded p-2" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} /> 
+                </label>
+                <input className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" type="submit" value="Criar Ambiente" /> 
+            </form>
+        </div>
     </div>
 );
 }

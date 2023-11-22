@@ -22,12 +22,8 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-<<<<<<< HEAD
-    "react-native": "0.71.14",
-=======
     "react-native": "0.71.8",
     "react-native-datepicker": "^1.7.2",
->>>>>>> 6963bbb8faee8684fe934826f5c26417c8f24a87
     "react-native-gesture-handler": "~2.9.0",
     "react-native-pager-view": "6.1.2",
     "react-native-reanimated": "~2.14.4",

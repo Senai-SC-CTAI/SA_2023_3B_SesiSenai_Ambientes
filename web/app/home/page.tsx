@@ -49,39 +49,40 @@ const handleCancel = () => {
 };
 
 return (
-<div className='bg-white min-h-screen'>
-<Header />
+    <div className='bg-gray-100 min-h-screen'>
+    <Header />
+    <h2 className='text-black text-center text-3xl mt-16 mb-8'>Ambientes cadastrados</h2>
     <div className='flex flex-col items-center justify-center w-screen bg-no-repeat bg-cover relative'>
-      <div className="flex mt-16">
-          <div className="container mx-auto px-4 flex flex-col items-start">
-              {ambientes.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center">
-                      <p className="text-center text-gray-500">Ainda não há nenhum ambiente</p>
-                  </div>
-              ) : (
-                  ambientes.map((ambiente, index) => (
-                      <div key={index} className="flex items-center justify-center bg-gray-100 rounded-lg p-4 mb-4 shadow-md w-96">
-                          <div className='p-4 flex flex-col items-center'> 
-                              <p className="font-bold text-black text-xl">{ambiente.nome}</p>
-                              <p className="text-sm text-gray-500 mb-4 text-center">{ambiente.descricao}</p>
-                              <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" onClick={() => handleEdit(ambiente)}>Editar</button>
-                          </div>
-                      </div>
-                  ))
-              )}
-          </div>
-          {ambienteEditando && (
-              <div className="bg-gray-100 rounded-lg p-4 mb-4 shadow-md w-96 h-48">
-                  <input className="border-2 border-black text-black rounded p-2 w-full mb-4" type="text" value={nome} onChange={e => setNome(e.target.value)} />
-                  <input className="border-2 border-black text-black rounded p-2 w-full mb-4" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
-                  <div className="flex justify-between">
-                      <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" onClick={handleSave}>Salvar</button>
-                      <button className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg" onClick={handleCancel}>Voltar</button>
-                  </div>
-              </div>
-          )}
-      </div>
-  </div>
+        <div className="flex mt-16">
+            <div className="container mx-auto px-4 flex flex-col items-start">
+                {ambientes.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center">
+                        <p className="text-center text-gray-500 text-lg">Ainda não há nenhum ambiente</p>
+                    </div>
+                ) : (
+                    ambientes.map((ambiente, index) => (
+                        <div key={index} className="flex items-center justify-center bg-white rounded-lg p-6 mb-6 shadow-lg w-full md:w-96">
+                            <div className='p-4 flex flex-col items-center'> 
+                                <p className="font-bold text-black text-2xl">{ambiente.nome}</p>
+                                <p className="text-md text-gray-600 mb-4 text-center">{ambiente.descricao}</p>
+                                <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" onClick={() => handleEdit(ambiente)}>Editar</button>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+            {ambienteEditando && (
+                <div className="bg-white rounded-lg p-6 mb-6 shadow-lg w-full md:w-96 h-48">
+                    <input className="border-2 border-gray-300 text-black rounded p-2 w-full mb-4" type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                    <input className="border-2 border-gray-300 text-black rounded p-2 w-full mb-4" type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
+                    <div className="flex justify-between">
+                        <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" onClick={handleSave}>Salvar</button>
+                        <button className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg" onClick={handleCancel}>Voltar</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    </div>
 </div>
   );
 }

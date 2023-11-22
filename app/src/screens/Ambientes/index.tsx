@@ -83,13 +83,13 @@ export function Ambientes() {
                 <Text style={styles.modalText}>Reservar {currentAmbiente?.nome}</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Dia (yyyy-MM-dd)"
+                    placeholder="Dia (ANO-MÊS-DIA)"
                     onChangeText={text => setDia(text)}
                     value={dia}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Horário (HH:mm)"
+                    placeholder="Horário (HORA:MINU)"
                     onChangeText={text => setHorario(text)}
                     value={horario}
                 />

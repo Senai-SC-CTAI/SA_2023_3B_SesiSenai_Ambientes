@@ -8,25 +8,27 @@ import { useNavigation } from '@react-navigation/native';
 export function Salas() {
     const navigation = useNavigation();
     const schedule = [
-        { time: '7:40', room: 'Sala 1', class: 'Turma A' },
-        { time: '10:30', room: 'Sala 2', class: 'Turma B' },
+        { time: '7:40', room: 'D12', kit: 'Lab', beforeBreak: '3B Lucas', afterBreak: '---' },
+        { time: '10:30', room: 'E12', kit: 'Sinergia', beforeBreak: '3A Luciano', afterBreak: '----' },
       ];
     return (
         <View style={styles.container}>
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.cell}>Horário</th>
-              <th style={styles.cell}>Sala</th>
-              <th style={styles.cell}>Turma</th>
+              <th style={styles.cell}>SALAS</th>
+              <th style={styles.cell}>KIT</th>
+              <th style={styles.cell}>Antes do intervalo</th>
+              <th style={styles.cell}>Depois do intervalo</th>
             </tr>
           </thead>
           <tbody>
             {schedule.map((item, index) => (
               <tr key={index}>
-                <td style={styles.cell}>{item.time}</td>
                 <td style={styles.cell}>{item.room}</td>
-                <td style={styles.cell}>{item.class}</td>
+                <td style={styles.cell}>{item.kit}</td>
+                <td style={styles.cell}>{item.beforeBreak}</td>
+                <td style={styles.cell}>{item.afterBreak}</td>
               </tr>
             ))}
           </tbody>

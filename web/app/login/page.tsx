@@ -21,16 +21,16 @@ export const Login: React.FC = () => {
     const [senha, setSenha] = useState('');    
 
     const handleLogin = async () => {
-        const response = await logar(email, senha);
+        const response = await logar(email, senha); 
         if (response) {
             const userEmail = response.email;
             const userNome = response.nome;
             const userType = response.accountType; 
+            const userSenha = response.senha; 
+            const userId = response.id; 
     
-            // Armazene os dados do usuário no armazenamento local
-            localStorage.setItem('user', JSON.stringify({ userEmail, userNome, userType }));
+            localStorage.setItem('user', JSON.stringify({ userEmail, userNome, userType, userSenha, userId }));
     
-            // Navegue para a nova rota
             router.push('/home');
         } else {
             alert('Erro ao autenticar usuário.');

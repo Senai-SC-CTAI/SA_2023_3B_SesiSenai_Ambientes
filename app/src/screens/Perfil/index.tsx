@@ -1,13 +1,42 @@
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
-
-
+import React, { useState, useEffect } from 'react';
+import { Alert, View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function Perfil() {
     const route = useRoute();
     const navigation = useNavigation();
-    const { userNome, userType, userEmail } = route.params;
+    const { userNome, userType, userEmail, userId } = route.params;
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedNome, setEditedNome] = useState(userNome);
+    const [editedEmail, setEditedEmail] = useState(userEmail);
+    const [editedSenha, setEditedSenha] = useState('');
+    const [user, setUser] = useState({ userNome, userType, userEmail, userId });
+
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
+    const handleSave = async () => {
+        const response = await fetch(`http://localhost:8090/usuario/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nome: editedNome,
+                email: editedEmail,
+                senha: editedSenha,
+            }),
+        });
+    
+        if (response.ok) {
+            const updatedUser = await response.json();
+            setUser(updatedUser);
+            setIsEditing(false);
+        } else {
+            alert('Erro ao salvar usuário');
+        }
+    };
 
     const handleLogout = () => {
         navigation.reset({
@@ -16,35 +45,54 @@ export function Perfil() {
         });
     };
 
+    const handleDelete = () => {
+        Alert.alert(
+            "Excluir Conta",
+            "Tem certeza de que deseja deletar sua conta?",
+            [
+                { text: "Não", style: "cancel" },
+                { text: "Sim", onPress: async () => {
+                    const response = await fetch(`http://localhost:8090/usuario/delete?email=${userEmail}`, {
+                        method: 'DELETE',
+                    });
+                    if (response.ok) {
+                        handleLogout();
+                    } else {
+                        console.error('Erro ao deletar a conta');
+                    }
+                }}
+            ]
+        );
+    };
 
-return (
-    <View style={styles.container}>
-        <View style={styles.profileBackground}>
-            <View style={styles.blueBackground}>
-                <View style={styles.profileSection}>
-                    <View style={[styles.iconContainer, {backgroundColor: "#037bfc"}]}>
-                        <Text style={styles.icon}>{userNome.slice(0,2).toUpperCase()}</Text>
-                    </View>
-                    <View style={styles.infoContainer}> 
-                        <Text style={styles.name}>{userNome}</Text>
-                        <Text style={styles.role}>{userType}</Text>
-                        <Text style={styles.email}>{userEmail}</Text>
+    return (
+        <View style={styles.container}>
+            <View style={styles.profileBackground}>
+                <View style={styles.blueBackground}>
+                    <View style={styles.profileSection}>
+                        <View style={[styles.iconContainer, {backgroundColor: "#037bfc"}]}>
+                            <Text style={styles.icon}>{user.userNome.slice(0,2).toUpperCase()}</Text>
+                        </View>
+                        <View style={styles.infoContainer}> 
+                            <Text style={styles.name}>{user.userNome}</Text>
+                            <Text style={styles.role}>{user.userType}</Text>
+                            <Text style={styles.email}>{user.userEmail}</Text>
+                        </View>
                     </View>
                 </View>
             </View>
+            <View style={styles.buttonsSection}>
+                <TouchableOpacity style={styles.button} onPress={handleEdit}>
+                    <Text style={styles.buttonText}>Editar Perfil</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                    <Text style={styles.buttonText}>Deslogar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonExcluir} onPress={handleDelete}>
+                    <Text style={styles.buttonText}>Excluir Perfil</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-        <View style={styles.buttonsSection}>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Editar Perfil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                <Text style={styles.buttonText}>Deslogar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonExcluir}>
-                <Text style={styles.buttonText}>Excluir Perfil</Text>
-            </TouchableOpacity>
-        </View>
-    </View>
 );
 }
 
