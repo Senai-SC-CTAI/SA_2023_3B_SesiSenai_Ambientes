@@ -19,8 +19,8 @@ export function TabNavigator({ route }) {
     return (
         <Tab.Navigator>
             {(userType === 'estudante' || userType === 'coordination') && <Tab.Screen name="Salas" component={Salas} />}
-            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" initialParams={{ userId, userNome}} component={Ambientes} />}
-            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Reservas" component={Reservas} />}
+            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Ambientes" initialParams={{ userId, userNome, userEmail}} component={Ambientes} />}
+            {(userType === 'professor' || userType === 'coordenacao') && <Tab.Screen name="Reservas" initialParams={{ userId, userNome, userEmail}} component={Reservas} />}
             {userType === 'coordenacao' && <Tab.Screen name="Pessoas" component={Pessoas} />}
             {userType === '???' && <Tab.Screen name="EditarPerfil" component={EditarPerfil} />}
             <Tab.Screen name="Perfil" component={Perfil} initialParams={{ userNome, userEmail, userType }} />

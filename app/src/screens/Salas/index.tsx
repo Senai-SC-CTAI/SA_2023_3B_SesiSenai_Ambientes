@@ -10,7 +10,6 @@ export function Salas() {
     const schedule = [
         { time: '7:40', room: 'Sala 1', class: 'Turma A' },
         { time: '10:30', room: 'Sala 2', class: 'Turma B' },
-        // Adicione mais horários, salas e turmas conforme necessário
       ];
     return (
         <View style={styles.container}>
