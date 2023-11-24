@@ -45,24 +45,17 @@ export function Perfil() {
         });
     };
 
-    const handleDelete = () => {
-        Alert.alert(
-            "Excluir Conta",
-            "Tem certeza de que deseja deletar sua conta?",
-            [
-                { text: "Não", style: "cancel" },
-                { text: "Sim", onPress: async () => {
+    const handleDelete = async () => {
                     const response = await fetch(`http://localhost:8090/usuario/delete?email=${userEmail}`, {
                         method: 'DELETE',
                     });
                     if (response.ok) {
+                        alert('Conta deletada.');
                         handleLogout();
                     } else {
                         console.error('Erro ao deletar a conta');
                     }
-                }}
-            ]
-        );
+
     };
 
     return (
@@ -88,7 +81,7 @@ export function Perfil() {
                 <TouchableOpacity style={styles.button} onPress={handleLogout}>
                     <Text style={styles.buttonText}>Deslogar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonExcluir} onPress={handleDelete}>
+                <TouchableOpacity style={styles.buttonExcluir} onPress={() => handleDelete()}>
                     <Text style={styles.buttonText}>Excluir Perfil</Text>
                 </TouchableOpacity>
             </View>
